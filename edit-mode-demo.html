@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>People Delivery Plan 2026 — Edit Mode POC</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f1f5f9;color:#1e293b}
+  header{background:#1e3a5f;color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+  header h1{font-size:18px;font-weight:600}
+  header p{font-size:12px;opacity:.7;margin-top:2px}
+  .tabs{display:flex;gap:0;background:#fff;border-bottom:1px solid #e2e8f0;padding:0 24px}
+  .tab{padding:12px 18px;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;color:#64748b;white-space:nowrap}
+  .tab.active{border-bottom-color:#f97316;color:#1e3a5f;font-weight:600}
+  .content{padding:24px;max-width:1200px;margin:0 auto}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  th{background:#1e3a5f;color:#fff;padding:10px 12px;font-size:12px;font-weight:600;text-align:left}
+  td{padding:9px 12px;font-size:13px;border-bottom:1px solid #f1f5f9;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#f8fafc}
+  .badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;text-transform:uppercase}
+  .badge-done{background:#dcfce7;color:#166534}
+  .badge-prog{background:#fef9c3;color:#92400e}
+  .badge-plan{background:#e0e7ff;color:#3730a3}
+  .health{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600}
+  .health-Green{background:#dcfce7;color:#166534}
+  .health-Amber{background:#fef9c3;color:#92400e}
+  .health-Red{background:#fee2e2;color:#991b1b}
+  .iter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+  .iter-card{background:#fff;border-radius:10px;border:1px solid #e2e8f0;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .iter-card h3{font-size:14px;font-weight:600;color:#1e3a5f;margin-bottom:4px}
+  .iter-card .meta{font-size:12px;color:#64748b;margin-bottom:10px}
+  .iter-card .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:13px}
+  .iter-card .label{color:#64748b;font-size:12px}
+  .iter-card ul{padding-left:16px;font-size:12px;color:#374151;margin-top:4px}
+  .iter-card ul li{margin-bottom:2px}
+  .section-head{font-size:13px;font-weight:700;color:#1e3a5f;margin:20px 0 10px;padding-bottom:4px;border-bottom:2px solid #f97316;display:inline-block}
+  #edit-toggle{position:fixed;bottom:24px;right:24px;z-index:9000;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-size:14px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.25);transition:all .2s}
+  #edit-toggle.off{background:#1e3a5f;color:#fff}
+  #edit-toggle.on{background:#f97316;color:#fff}
+  #save-bar{position:fixed;bottom:70px;right:24px;z-index:9000;display:none;gap:8px;align-items:center;background:#fff;border:1px solid #d1d5db;border-radius:10px;padding:8px 14px;box-shadow:0 2px 12px rgba(0,0,0,.15);font-size:13px}
+  #save-bar button{padding:6px 14px;border-radius:6px;border:none;cursor:pointer;font-size:13px;font-weight:600}
+  .save-btn{background:#166534;color:#fff}
+  .discard-btn{background:#f3f4f6;color:#374151}
+  #change-count{color:#92400e;font-weight:600}
+  .editable{background:#fffbeb!important;outline:1px solid #f59e0b;border-radius:4px;cursor:text}
+  .editable:focus{outline:2px solid #f97316}
+  tr.dirty td{background:#fffbeb!important}
+  .edit-select{border:1px solid #d1d5db;border-radius:4px;padding:2px 6px;font-size:12px;background:#fffbeb;cursor:pointer}
+  .iter-card.dirty{border-color:#f59e0b;background:#fffbeb}
+  #banner{position:fixed;top:0;left:0;right:0;z-index:9999;padding:8px 16px;font-size:13px;text-align:center;transition:opacity .3s;display:none;color:#fff}
+  .panel{display:none}
+  .panel.active{display:block}
+  .sp-note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 16px;font-size:13px;color:#1e40af;margin-bottom:20px}
+  .sp-note strong{font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>People Authority Build — 2026 Delivery Plan &amp; Roadmap</h1>
+    <p>Public Records and Derived Authorities · NuCLEAR · Edit Mode POC</p>
+  </div>
+  <div style="font-size:12px;opacity:.7">Refreshed Jun 25, 2026</div>
+</header>
+<div class="tabs" id="tabs">
+  <div class="tab active" data-panel="roadmap">Roadmap</div>
+  <div class="tab" data-panel="iterations">Project Summary</div>
+</div>
+<div class="content">
+  <div class="sp-note">
+    <strong>Edit Mode POC</strong> — Click <strong>✎ Edit</strong> (bottom-right) to make inline changes. Changes highlight amber. Save commits to GitHub via the connector.
+  </div>
+  <div class="panel active" id="panel-roadmap">
+    <table id="roadmap-table">
+      <thead>
+        <tr>
+          <th style="width:36px">#</th>
+          <th style="width:50px">Env</th>
+          <th>Task</th>
+          <th style="width:110px">Status</th>
+          <th style="width:110px">Target Date</th>
+          <th style="width:110px">Owner</th>
+          <th style="width:130px">ADO Ref</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="roadmap-body"></tbody>
+    </table>
+  </div>
+  <div class="panel" id="panel-iterations">
+    <div id="iter-container"></div>
+  </div>
+</div>
+<button id="edit-toggle" class="off">✎ Edit</button>
+<div id="save-bar" style="display:none;flex-direction:row">
+  <span id="change-count">0 unsaved changes</span>
+  <button class="discard-btn" id="discard-btn">Discard</button>
+  <button class="save-btn" id="save-btn">Save to GitHub</button>
+</div>
+<div id="banner"></div>
+<script>
+const ROWS = [
+  {id:1,e:'QA',t:'Threshold Merge for Basis Content',s:'done',d:'Jan 27, 2026',o:'NPD/NER',a:'User Story 1448457',n:''},
+  {id:2,e:'QA',t:'Load full content set using v4.7 - qa',s:'done',d:'Feb 26, 2026',o:'Dev',a:'',n:''},
+  {id:3,e:'QA',t:'Run all non-basis content (200 records) against V4.8',s:'done',d:'May 22, 2026',o:'NER',a:'',n:'10 days.'},
+  {id:4,e:'QA',t:'NPD Validation & Feedback V4.8 (Non-Basis verification)',s:'done',d:'Jun 15, 2026',o:'NPD',a:'',n:'Non-basis complete.'},
+  {id:5,e:'QA',t:'Complete Build out of Authority again (v4.8)',s:'plan',d:'Jun 24, 2026',o:'NER',a:'Feature 1290619',n:'Blocked on warehouse.'},
+  {id:6,e:'QA',t:'NPD Validation & Feedback V4.8 (Basis)',s:'plan',d:'Jun 30, 2026',o:'NPD',a:'',n:'Requires id 5 complete.'},
+  {id:7,e:'QA',t:'BAHR Authority Build Complete',s:'plan',d:'Jul 7, 2026',o:'NER',a:'',n:''},
+  {id:8,e:'QA',t:'Load V5.0 Model',s:'plan',d:'Jul 7, 2026',o:'Dev',a:'',n:''},
+  {id:9,e:'QA',t:'NPD Validation V5.0 (Non-Basis)',s:'plan',d:'Jul 21, 2026',o:'NPD',a:'',n:''},
+  {id:10,e:'QA',t:'NPD Validation V5.0 (Basis)',s:'plan',d:'Aug 4, 2026',o:'NPD',a:'',n:''},
+  {id:11,e:'QA',t:'Load V6.0 Model',s:'plan',d:'Aug 18, 2026',o:'Dev',a:'',n:''},
+  {id:12,e:'QA',t:'NPD Validation V6.0 (Non-Basis)',s:'plan',d:'Sep 1, 2026',o:'NPD',a:'',n:''},
+  {id:13,e:'QA',t:'NPD Validation V6.0 (Basis)',s:'plan',d:'Sep 15, 2026',o:'NPD',a:'',n:''},
+  {id:14,e:'QA',t:'V6.1 Model Load & Validation',s:'plan',d:'Oct 6, 2026',o:'NPD/Dev',a:'',n:''},
+  {id:15,e:'QA',t:'V6.2 Model Load & Final QA Validation',s:'plan',d:'Oct 27, 2026',o:'NPD/Dev',a:'',n:''},
+  {id:16,e:'QA',t:'QA Sign-Off & UAT Readiness',s:'plan',d:'Nov 10, 2026',o:'QA Lead',a:'',n:''},
+  {id:17,e:'QA',t:'Performance Benchmark QA vs Prod Baseline',s:'plan',d:'Nov 17, 2026',o:'Dev',a:'',n:''},
+  {id:18,e:'Prod',t:'Prod Infra Provisioning',s:'plan',d:'Aug 1, 2026',o:'Infra',a:'',n:'Requires QA sign-off.'},
+  {id:19,e:'Prod',t:'Data Migration Dry Run #1',s:'plan',d:'Aug 25, 2026',o:'Dev/DBA',a:'',n:''},
+  {id:20,e:'Prod',t:'Data Migration Dry Run #2',s:'plan',d:'Sep 8, 2026',o:'Dev/DBA',a:'',n:''},
+  {id:21,e:'Prod',t:'Cutover Runbook Draft',s:'plan',d:'Sep 15, 2026',o:'PM',a:'',n:''},
+  {id:22,e:'Prod',t:'Load V6.0 to Prod',s:'plan',d:'Oct 13, 2026',o:'Dev',a:'',n:''},
+  {id:23,e:'Prod',t:'NPD Prod Spot-Check V6.0',s:'plan',d:'Oct 20, 2026',o:'NPD',a:'',n:''},
+  {id:24,e:'Prod',t:'Load V6.1 to Prod',s:'plan',d:'Nov 3, 2026',o:'Dev',a:'',n:''},
+  {id:25,e:'Prod',t:'Load V6.2 to Prod',s:'plan',d:'Nov 17, 2026',o:'Dev',a:'',n:''},
+  {id:26,e:'Prod',t:'Full Regression Test Prod',s:'plan',d:'Nov 24, 2026',o:'QA/NPD',a:'',n:''},
+  {id:27,e:'Prod',t:'Go/No-Go Review',s:'plan',d:'Dec 1, 2026',o:'Leadership',a:'',n:''},
+  {id:28,e:'Prod',t:'Production Cutover',s:'plan',d:'Dec 8, 2026',o:'Dev/Infra',a:'',n:'All hands.'},
+];
+const ALL_ITER = {
+  jun23:[
+    {section:'Person Authority Build',name:'Basis Person Authority Build Up',team:'NER',owner:'Krishanu Bhattacharya',health:'Green',status:'In Progress',iterLabel:'Jun 23, 2026 (current)',state:['v4.8 basis authority build 60% complete','Warehouse slot confirmed for Jun 24'],risks:['Team availability during school holidays','Warehouse access window tight'],next:['Complete BAHR authority build by Jun 24','Kick off NPD Basis validation Jun 30'],impact:['Delays here push V5.0 load by 1:1 ratio']},
+    {section:'NPD Validation',name:'Non-Basis V4.8 Validation',team:'NPD',owner:'Vandana Roy',health:'Green',status:'Complete',iterLabel:'Jun 23, 2026 (current)',state:['All 200 non-basis records validated','Precision 94.2% / Recall 91.8%'],risks:[],next:['Archive results to SharePoint','Brief leads on findings'],impact:['Unlocks V5.0 non-basis track']},
+    {section:'Model Release',name:'V4.8 Drop-In Release',team:'Dev',owner:'Dev Team',health:'Amber',status:'In Progress',iterLabel:'Jun 23, 2026 (current)',state:['Model load complete','Post-load checks pending'],risks:['One flaky integration test — investigating'],next:['Resolve integration test','Tag release in ADO'],impact:['Blocks V5.0 model prep if not resolved']},
+  ],
+  jul07:[
+    {section:'Person Authority Build',name:'BAHR Authority Build Complete',team:'NER',owner:'Krishanu Bhattacharya',health:'Amber',status:'Not Started',iterLabel:'Jul 7, 2026',state:['Scheduled to start Jun 25'],risks:['Warehouse availability unconfirmed beyond Jun 24','SME bandwidth — 2 team members on leave'],next:['Confirm warehouse slot Jul 1-4','Assign backup SME'],impact:['Critical path — all V5.0 QA work depends on this']},
+    {section:'NPD Validation',name:'Basis V4.8 Validation',team:'NPD',owner:'Vandana Roy',health:'Amber',status:'Not Started',iterLabel:'Jul 7, 2026',state:['Dependent on BAHR build completing Jun 24'],risks:['If BAHR slips, validation moves to Jul 14 at earliest'],next:['Prepare test data set','Confirm NPD reviewer availability'],impact:['Validation result feeds V5.0 model tuning']},
+  ],
+  jul21:[
+    {section:'NPD Validation',name:'Non-Basis V5.0 Validation',team:'NPD',owner:'Vandana Roy',health:'Green',status:'Not Started',iterLabel:'Jul 21, 2026',state:['Planned, awaiting V5.0 model load'],risks:['Model load delay would push this'],next:['V5.0 model load Jul 7','Kick off validation immediately after'],impact:['Feeds V5.0 basis track']},
+  ],
+};
+
+function renderRoadmap() {
+  const tbody = document.getElementById('roadmap-body');
+  tbody.innerHTML = '';
+  ROWS.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.dataset.rowId = row.id;
+    tr.innerHTML = `<td>${row.id}</td><td><span class="badge badge-${row.e==='QA'?'plan':'prog'}" style="font-size:10px">${row.e}</span></td><td>${row.t}</td><td data-col="status"><span class="badge badge-${row.s}">${{done:'Done',prog:'In Progress',plan:'Planned'}[row.s]}</span></td><td data-col="date">${row.d}</td><td data-col="owner">${row.o}</td><td><a href="#" style="color:#1e3a5f;font-size:12px" onclick="return false">${row.a}</a></td><td data-col="notes" style="color:#64748b;font-size:12px">${row.n}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderIterations() {
+  const container = document.getElementById('iter-container');
+  container.innerHTML = '';
+  const iterOrder = ['jun23','jul07','jul21'];
+  const iterLabels = {'jun23':'Jun 23, 2026 (current)','jul07':'Jul 7, 2026','jul21':'Jul 21, 2026'};
+  iterOrder.forEach(key => {
+    const items = ALL_ITER[key];
+    if (!items) return;
+    const heading = document.createElement('div');
+    heading.className = 'section-head';
+    heading.textContent = iterLabels[key];
+    container.appendChild(heading);
+    const grid = document.createElement('div');
+    grid.className = 'iter-grid';
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'iter-card';
+      card.dataset.iterKey = key;
+      card.dataset.iterName = item.name;
+      card.innerHTML = `<h3>${item.name}</h3><div class="meta">${item.section} · ${item.team} · ${item.owner}</div><div class="row"><span class="label">Health</span><span class="health health-${item.health}" data-col="health" data-iter-key="${key}" data-iter-name="${item.name}">${item.health}</span></div><div class="row"><span class="label">Status</span><span data-col="status" data-iter-key="${key}" data-iter-name="${item.name}" style="font-size:13px">${item.status}</span></div>${item.state.length?`<div class="label" style="margin-top:8px">Current state</div><ul>${item.state.map(s=>`<li>${s}</li>`).join('')}</ul>`:''}${item.risks.length?`<div class="label" style="margin-top:8px;color:#991b1b">Risks</div><ul>${item.risks.map(r=>`<li style="color:#7f1d1d">${r}</li>`).join('')}</ul>`:''}${item.next.length?`<div class="label" style="margin-top:8px">Next steps</div><ul>${item.next.map(n=>`<li>${n}</li>`).join('')}</ul>`:''}`;
+      grid.appendChild(card);
+    });
+    container.appendChild(grid);
+  });
+}
+
+document.getElementById('tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+});
+
+let editMode = false, pendingRows = {}, pendingIters = {};
+const STATUS_OPTS = [{v:'done',l:'Done'},{v:'prog',l:'In Progress'},{v:'plan',l:'Planned'}];
+const HEALTH_OPTS = ['Green','Amber','Red'];
+const ITER_STATUS = ['Not Started','In Progress','Complete','On Hold','Blocked'];
+
+document.getElementById('edit-toggle').onclick = toggleEdit;
+document.getElementById('save-btn').onclick = saveChanges;
+document.getElementById('discard-btn').onclick = discardChanges;
+
+function toggleEdit() {
+  editMode = !editMode;
+  const btn = document.getElementById('edit-toggle');
+  btn.className = editMode ? 'on' : 'off';
+  btn.textContent = editMode ? '✎ Editing' : '✎ Edit';
+  editMode ? activateEditMode() : deactivateEditMode();
+}
+
+function activateEditMode() {
+  document.querySelectorAll('tr[data-row-id]').forEach(tr => {
+    const id = parseInt(tr.dataset.rowId);
+    const row = ROWS.find(r => r.id === id);
+    if (!row) return;
+    tr.querySelectorAll('td[data-col]').forEach(td => {
+      const col = td.dataset.col;
+      if (col === 'status') {
+        const sel = document.createElement('select');
+        sel.className = 'edit-select';
+        STATUS_OPTS.forEach(o => { const opt = document.createElement('option'); opt.value = o.v; opt.textContent = o.l; if (o.v === row.s) opt.selected = true; sel.appendChild(opt); });
+        sel.onchange = () => { row.s = sel.value; markRowDirty(id, tr); };
+        td.innerHTML = ''; td.appendChild(sel);
+      }
+      if (col === 'owner' || col === 'date' || col === 'notes') {
+        td.contentEditable = 'true'; td.classList.add('editable');
+        td.oninput = () => { if (col==='owner') row.o=td.textContent.trim(); if (col==='date') row.d=td.textContent.trim(); if (col==='notes') row.n=td.textContent.trim(); markRowDirty(id, tr); };
+      }
+    });
+  });
+  document.querySelectorAll('[data-col][data-iter-key]').forEach(el => {
+    const key = el.dataset.iterKey, name = el.dataset.iterName, col = el.dataset.col;
+    const item = (ALL_ITER[key]||[]).find(i => i.name === name);
+    if (!item) return;
+    if (col === 'health') {
+      el.style.cursor = 'pointer'; el.title = 'Click to cycle';
+      el.onclick = () => { const next = HEALTH_OPTS[(HEALTH_OPTS.indexOf(item.health)+1)%HEALTH_OPTS.length]; item.health = next; el.className = `health health-${next}`; el.textContent = next; markIterDirty(key, name); };
+    }
+    if (col === 'status') {
+      const sel = document.createElement('select'); sel.className = 'edit-select';
+      ITER_STATUS.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; if (v === item.status) o.selected = true; sel.appendChild(o); });
+      sel.onchange = () => { item.status = sel.value; markIterDirty(key, name); };
+      el.replaceWith(sel); Object.assign(sel.dataset, {col, iterKey: key, iterName: name});
+    }
+  });
+}
+
+function deactivateEditMode() { renderRoadmap(); renderIterations(); pendingRows = {}; pendingIters = {}; refreshCount(); }
+function markRowDirty(id, tr) { pendingRows[id] = true; tr.classList.add('dirty'); refreshCount(); }
+function markIterDirty(key, name) { pendingIters[key+'|'+name] = true; const card = document.querySelector(`.iter-card[data-iter-key="${key}"][data-iter-name="${name}"]`); if (card) card.classList.add('dirty'); refreshCount(); }
+function refreshCount() { const n = Object.keys(pendingRows).length + Object.keys(pendingIters).length; document.getElementById('save-bar').style.display = n > 0 ? 'flex' : 'none'; document.getElementById('change-count').textContent = n + ' unsaved change' + (n!==1?'s':''); }
+
+function saveChanges() {
+  const n = Object.keys(pendingRows).length + Object.keys(pendingIters).length;
+  showBanner('Saving ' + n + ' change' + (n!==1?'s':'') + ' to GitHub…', '#1e3a5f');
+  setTimeout(() => { pendingRows = {}; pendingIters = {}; document.querySelectorAll('tr.dirty').forEach(tr => tr.classList.remove('dirty')); document.querySelectorAll('.iter-card.dirty').forEach(c => c.classList.remove('dirty')); refreshCount(); showBanner('✓ ' + n + ' change' + (n!==1?'s':'') + ' saved (simulated)', '#166534'); setTimeout(hideBanner, 3000); }, 1000);
+}
+function discardChanges() { editMode = true; toggleEdit(); showBanner('Changes discarded', '#64748b'); setTimeout(hideBanner, 2000); }
+function showBanner(msg, bg) { const b = document.getElementById('banner'); b.style.background = bg; b.style.display = 'block'; b.style.opacity = '1'; b.textContent = msg; }
+function hideBanner() { document.getElementById('banner').style.opacity = '0'; setTimeout(() => document.getElementById('banner').style.display = 'none', 300); }
+
+renderRoadmap();
+renderIterations();
+</script>
+</body>
+</html>
