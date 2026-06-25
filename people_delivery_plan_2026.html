@@ -888,15 +888,15 @@ function buildRm(){
         +'</tr>';
     }
     var bg=rowBg(r.id),tc=rowTc(r.id),st='background:'+bg+';color:'+tc,bold=!!CM[r.id];
-    h+='<tr class="grp-'+grpId+'" id="rm-row-'+r.id+'">'
+    h+='<tr class="grp-'+grpId+'" id="rm-row-'+r.id+'" data-row-id="'+r.id+'">'
       +'<td class="id" style="'+st+(bold?';font-weight:700':'')+'">'+( bold?'<span class="id-link" title="Back to Overview" onclick="goToOverview('+r.id+')">'+r.id+'</span>':r.id)+'</td>'
       +'<td style="'+st+'">'+envHtml(r.e)+'</td>'
       +'<td style="'+st+(bold?';font-weight:600;cursor:pointer':'')+'"'+(bold?' title="Back to Overview" onclick="goToOverview('+r.id+')"':'')+'>'+( bold?r.t+' <span style="font-size:9px;opacity:.5">&#8598;</span>':r.t)+'</td>'
-      +'<td style="'+st+'">'+r.d+'</td>'
-      +'<td style="'+st+'">'+r.o+'</td>'
-      +'<td style="'+st+'">'+stHtml(r.s)+'</td>'
+      +'<td data-col="date" style="'+st+'">'+r.d+'</td>'
+      +'<td data-col="owner" style="'+st+'">'+r.o+'</td>'
+      +'<td data-col="status" style="'+st+'">'+stHtml(r.s)+'</td>'
       +'<td style="'+st+'">'+adoHtml(r.a)+'</td>'
-      +'<td style="'+st+'"><span class="note">'+noteHtml(r.n)+'</span></td>'
+      +'<td data-col="notes" style="'+st+'"><span class="note">'+noteHtml(r.n)+'</span></td>'
       +'</tr>';
   });
   document.getElementById('rm-body').innerHTML=h;

@@ -45,12 +45,34 @@ function _clearToken() {
 
 const _apiBase = `https://api.github.com/repos/${GH_CONFIG.owner}/${GH_CONFIG.repo}/contents/${GH_CONFIG.path}`;
 
+// ─── Local cache (localStorage fallback when GitHub is down) ─────────────────
+
+const _CACHE_KEY = `gh_cache_${GH_CONFIG.owner}_${GH_CONFIG.repo}`;
+
+function _saveCache(data) {
+  try { localStorage.setItem(_CACHE_KEY, JSON.stringify({ ts: Date.now(), data })); } catch {}
+}
+
+function _loadCache() {
+  try {
+    const raw = localStorage.getItem(_CACHE_KEY);
+    if (!raw) return null;
+    const { ts, data } = JSON.parse(raw);
+    return { data, ageMin: (Date.now() - ts) / 60000 };
+  } catch { return null; }
+}
+
 async function _readFile() {
-  // Use raw URL — no auth needed for public repos, much faster
   const url = `https://raw.githubusercontent.com/${GH_CONFIG.owner}/${GH_CONFIG.repo}/${GH_CONFIG.branch}/${GH_CONFIG.path}?_=${Date.now()}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Could not read data.json (${res.status})`);
-  return res.json();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    if (!res.ok) throw new Error(`Could not read data.json (${res.status})`);
+    return res.json();
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 async function _writeFile(data) {
@@ -91,28 +113,43 @@ const GitHubDB = {
 
   _data: null,  // in-memory cache of the full data.json
 
-  // Load data from GitHub and update the dashboard globals
   async load() {
     _showBanner('Loading data from GitHub…', 'info');
     try {
       const data = await _readFile();
       GitHubDB._data = data;
-
-      if (data.rows       && data.rows.length)       window.ROWS     = data.rows;
-      if (data.gantt      && data.gantt.length)       window.GANTT    = data.gantt;
-      if (data.iterations && Object.keys(data.iterations).length) window.ALL_ITER = data.iterations;
-
+      _saveCache(data);
+      if (data.rows       && data.rows.length)                     window.ROWS     = data.rows;
+      if (data.gantt      && data.gantt.length)                    window.GANTT    = data.gantt;
+      if (data.iterations && Object.keys(data.iterations).length)  window.ALL_ITER = data.iterations;
       _showBanner('Data loaded from GitHub', 'success');
       setTimeout(_hideBanner, 2500);
-
       if (typeof buildOv    === 'function') buildOv();
       if (typeof buildRm    === 'function') buildRm();
       if (typeof buildGantt === 'function') buildGantt();
-
+      if (typeof renderRoadmap    === 'function') renderRoadmap();
+      if (typeof renderIterations === 'function') renderIterations();
     } catch (err) {
       console.error('[GitHubDB] load error:', err);
-      _showBanner('GitHub load failed — using built-in data. ' + err.message, 'warning');
-      setTimeout(_hideBanner, 5000);
+      const cached = _loadCache();
+      if (cached) {
+        const { data, ageMin } = cached;
+        GitHubDB._data = data;
+        if (data.rows       && data.rows.length)                     window.ROWS     = data.rows;
+        if (data.gantt      && data.gantt.length)                    window.GANTT    = data.gantt;
+        if (data.iterations && Object.keys(data.iterations).length)  window.ALL_ITER = data.iterations;
+        const age = ageMin < 60 ? `${Math.round(ageMin)}m ago` : `${Math.round(ageMin/60)}h ago`;
+        _showBanner(`⚠️ GitHub unavailable — showing cached data (saved ${age})`, 'warning');
+        setTimeout(_hideBanner, 6000);
+        if (typeof buildOv    === 'function') buildOv();
+        if (typeof buildRm    === 'function') buildRm();
+        if (typeof buildGantt === 'function') buildGantt();
+        if (typeof renderRoadmap    === 'function') renderRoadmap();
+        if (typeof renderIterations === 'function') renderIterations();
+      } else {
+        _showBanner('⚠️ GitHub unavailable & no cached data — using built-in defaults', 'warning');
+        setTimeout(_hideBanner, 6000);
+      }
     }
   },
 
@@ -207,8 +244,9 @@ function _toggleEdit() {
 }
 
 function _activateEdit() {
-  // Stamp data-row-id and data-col onto table rows
+  // Stamp data-row-id and data-col onto rows not already tagged in HTML
   document.querySelectorAll('table tbody tr').forEach(tr => {
+    if (tr.dataset.rowId) return; // already tagged by buildRm()
     const cells = tr.querySelectorAll('td');
     if (cells.length < 4) return;
     const rowId = parseInt(cells[0] && cells[0].textContent.trim());

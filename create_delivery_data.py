@@ -122,6 +122,6 @@ for col_idx, name in enumerate(["File Name","Description","Category","URL","Last
     style_header(ws3.cell(row=1, column=col_idx, value=name))
 auto_size_columns(ws3)
 
-output_path = r"C:\Claude\Program-Delivery-Dashboard\delivery_data.xlsx"
+output_path = r"C:\Claude\delivery_data.xlsx"
 wb.save(output_path)
 print(f"Saved: {output_path}")
