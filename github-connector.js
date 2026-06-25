@@ -344,11 +344,45 @@ function _hideBanner() {
   if (b) { b.style.opacity = '0'; setTimeout(() => b.style.display = 'none', 300); }
 }
 
+// ─── Live polling — detect remote changes and re-render for all viewers ───────
+
+const POLL_INTERVAL_MS = 30_000; // check GitHub every 30 seconds
+let _lastKnownSha = null;
+let _pollTimer = null;
+
+async function _getCurrentSha() {
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GH_CONFIG.owner}/${GH_CONFIG.repo}/contents/${GH_CONFIG.path}?ref=${GH_CONFIG.branch}`,
+      { headers: { Accept: 'application/vnd.github+json' } }
+    );
+    if (!res.ok) return null;
+    const meta = await res.json();
+    return meta.sha || null;
+  } catch { return null; }
+}
+
+async function _pollForChanges() {
+  if (_editMode) return; // don't interrupt an active edit session
+  const sha = await _getCurrentSha();
+  if (sha && _lastKnownSha && sha !== _lastKnownSha) {
+    _lastKnownSha = sha;
+    _showBanner('🔄 New data available — refreshing…', 'info');
+    await GitHubDB.load();
+  }
+}
+
+function _startPolling() {
+  _pollTimer = setInterval(_pollForChanges, POLL_INTERVAL_MS);
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
 async function _init() {
   _injectUI();
+  _lastKnownSha = await _getCurrentSha();
   await GitHubDB.load();
+  _startPolling();
 }
 
 if (document.readyState === 'loading') {
@@ -356,5 +390,12 @@ if (document.readyState === 'loading') {
 } else {
   _init();
 }
+
+// Update SHA after a successful save so we don't self-trigger a reload
+const _origSave = GitHubDB.save.bind(GitHubDB);
+GitHubDB.save = async function() {
+  await _origSave();
+  _lastKnownSha = await _getCurrentSha();
+};
 
 window.GitHubDB = GitHubDB;
