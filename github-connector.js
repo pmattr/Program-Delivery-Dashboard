@@ -16,8 +16,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 const GH_CONFIG = {
-  owner: 'vandanasarahroy',
-  repo:  'Program-Delivery-Dashboard',
+  owner: 'pmattr',
+  repo:  'pmdashboard',
   path:  'data.json',
   branch: 'main',
   token: '',   // leave blank to be prompted, or paste your ghp_... token here
