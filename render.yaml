@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: program-delivery-dashboard
+    runtime: node
+    rootDir: .
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: GH_TOKEN
+        sync: false        # you paste this in the Render dashboard
+      - key: GH_OWNER
+        value: pmattr
+      - key: GH_REPO
+        value: Program-Delivery-Dashboard
+      - key: GH_BRANCH
+        value: main
+      - key: JWT_SECRET
+        generateValue: true  # Render auto-generates a secure secret
+      - key: USERS
+        sync: false          # paste JSON array of users in Render dashboard
