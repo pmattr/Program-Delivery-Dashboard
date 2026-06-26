@@ -1,63 +1,483 @@
 {
   "rows": [
-    {"id":1,  "e":"QA",   "t":"Threshold Merge for Basis Content",                          "s":"done", "d":"Jan 27, 2026", "o":"NPD/NER",   "a":"User Story 1448457", "n":""},
-    {"id":2,  "e":"QA",   "t":"Load full content set using v4.7 - qa",                      "s":"done", "d":"Feb 26, 2026", "o":"Dev",        "a":"",                   "n":""},
-    {"id":3,  "e":"QA",   "t":"Run all non-basis content (200 records) against V4.8",       "s":"done", "d":"May 22, 2026", "o":"NER",        "a":"",                   "n":"10 days."},
-    {"id":4,  "e":"QA",   "t":"NPD Validation & Feedback V4.8 (Non-Basis verification)",    "s":"done", "d":"Jun 15, 2026", "o":"NPD",        "a":"",                   "n":"Non-basis complete."},
-    {"id":5,  "e":"QA",   "t":"Complete Build out of Authority again (v4.8)",               "s":"plan", "d":"Jun 24, 2026", "o":"NER",        "a":"Feature 1290619",    "n":"Blocked on warehouse."},
-    {"id":6,  "e":"QA",   "t":"NPD Validation & Feedback V4.8 (Basis)",                    "s":"plan", "d":"Jun 30, 2026", "o":"NPD",        "a":"",                   "n":"Requires id 5 complete."},
-    {"id":7,  "e":"QA",   "t":"BAHR Authority Build Complete",                              "s":"plan", "d":"Jul 7,  2026", "o":"NER",        "a":"",                   "n":""},
-    {"id":8,  "e":"QA",   "t":"Load V5.0 Model",                                            "s":"plan", "d":"Jul 7,  2026", "o":"Dev",        "a":"",                   "n":""},
-    {"id":9,  "e":"QA",   "t":"NPD Validation V5.0 (Non-Basis)",                            "s":"plan", "d":"Jul 21, 2026", "o":"NPD",        "a":"",                   "n":""},
-    {"id":10, "e":"QA",   "t":"NPD Validation V5.0 (Basis)",                                "s":"plan", "d":"Aug 4,  2026", "o":"NPD",        "a":"",                   "n":""},
-    {"id":11, "e":"QA",   "t":"Load V6.0 Model",                                            "s":"plan", "d":"Aug 18, 2026", "o":"Dev",        "a":"",                   "n":""},
-    {"id":12, "e":"QA",   "t":"NPD Validation V6.0 (Non-Basis)",                            "s":"plan", "d":"Sep 1,  2026", "o":"NPD",        "a":"",                   "n":""},
-    {"id":13, "e":"QA",   "t":"NPD Validation V6.0 (Basis)",                                "s":"plan", "d":"Sep 15, 2026", "o":"NPD",        "a":"",                   "n":""},
-    {"id":14, "e":"QA",   "t":"V6.1 Model Load & Validation",                               "s":"plan", "d":"Oct 6,  2026", "o":"NPD/Dev",    "a":"",                   "n":""},
-    {"id":15, "e":"QA",   "t":"V6.2 Model Load & Final QA Validation",                      "s":"plan", "d":"Oct 27, 2026", "o":"NPD/Dev",    "a":"",                   "n":""},
-    {"id":16, "e":"QA",   "t":"QA Sign-Off & UAT Readiness",                                "s":"plan", "d":"Nov 10, 2026", "o":"QA Lead",    "a":"",                   "n":""},
-    {"id":17, "e":"QA",   "t":"Performance Benchmark QA vs Prod Baseline",                  "s":"plan", "d":"Nov 17, 2026", "o":"Dev",        "a":"",                   "n":""},
-    {"id":18, "e":"Prod", "t":"Prod Infra Provisioning",                                    "s":"plan", "d":"Aug 1,  2026", "o":"Infra",      "a":"",                   "n":"Requires QA sign-off."},
-    {"id":19, "e":"Prod", "t":"Data Migration Dry Run #1",                                  "s":"plan", "d":"Aug 25, 2026", "o":"Dev/DBA",    "a":"",                   "n":""},
-    {"id":20, "e":"Prod", "t":"Data Migration Dry Run #2",                                  "s":"plan", "d":"Sep 8,  2026", "o":"Dev/DBA",    "a":"",                   "n":""},
-    {"id":21, "e":"Prod", "t":"Cutover Runbook Draft",                                      "s":"plan", "d":"Sep 15, 2026", "o":"PM",         "a":"",                   "n":""},
-    {"id":22, "e":"Prod", "t":"Load V6.0 to Prod",                                          "s":"plan", "d":"Oct 13, 2026", "o":"Dev",        "a":"",                   "n":""},
-    {"id":23, "e":"Prod", "t":"NPD Prod Spot-Check V6.0",                                   "s":"plan", "d":"Oct 20, 2026", "o":"NPD",        "a":"",                   "n":""},
-    {"id":24, "e":"Prod", "t":"Load V6.1 to Prod",                                          "s":"plan", "d":"Nov 3,  2026", "o":"Dev",        "a":"",                   "n":""},
-    {"id":25, "e":"Prod", "t":"Load V6.2 to Prod",                                          "s":"plan", "d":"Nov 17, 2026", "o":"Dev",        "a":"",                   "n":""},
-    {"id":26, "e":"Prod", "t":"Full Regression Test Prod",                                  "s":"plan", "d":"Nov 24, 2026", "o":"QA/NPD",     "a":"",                   "n":""},
-    {"id":27, "e":"Prod", "t":"Go/No-Go Review",                                            "s":"plan", "d":"Dec 1,  2026", "o":"Leadership", "a":"",                   "n":""},
-    {"id":28, "e":"Prod", "t":"Production Cutover",                                         "s":"plan", "d":"Dec 8,  2026", "o":"Dev/Infra",  "a":"",                   "n":"All hands."}
+    {
+      "id": 1,
+      "e": "QA",
+      "t": "Threshold Merge for Basis Content",
+      "s": "done",
+      "d": "Jan 27, 2026",
+      "o": "NPD/NER",
+      "a": "User Story 1448457",
+      "n": ""
+    },
+    {
+      "id": 2,
+      "e": "QA",
+      "t": "Load full content set using v4.7 - qa",
+      "s": "done",
+      "d": "Feb 26, 2026",
+      "o": "Dev",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 3,
+      "e": "QA",
+      "t": "Run all non-basis content (200 records) against V4.8",
+      "s": "done",
+      "d": "May 22, 2026",
+      "o": "NER",
+      "a": "",
+      "n": "10 days."
+    },
+    {
+      "id": 4,
+      "e": "QA",
+      "t": "NPD Validation & Feedback V4.8 (Non-Basis verification)",
+      "s": "done",
+      "d": "Jun 15, 2026",
+      "o": "NPD",
+      "a": "",
+      "n": "Non-basis complete."
+    },
+    {
+      "id": 5,
+      "e": "QA",
+      "t": "Complete Build out of Authority again (v4.8)",
+      "s": "plan",
+      "d": "Jun 24, 2026",
+      "o": "NER",
+      "a": "Feature 1290619",
+      "n": "Blocked on warehouse."
+    },
+    {
+      "id": 6,
+      "e": "QA",
+      "t": "NPD Validation & Feedback V4.8 (Basis)",
+      "s": "plan",
+      "d": "Jun 30, 2026",
+      "o": "NPD",
+      "a": "",
+      "n": "Requires id 5 complete."
+    },
+    {
+      "id": 7,
+      "e": "QA",
+      "t": "BAHR Authority Build Complete",
+      "s": "plan",
+      "d": "Jul 7,  2026",
+      "o": "NER",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 8,
+      "e": "QA",
+      "t": "Load V5.0 Model",
+      "s": "plan",
+      "d": "Jul 7,  2026",
+      "o": "Dev",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 9,
+      "e": "QA",
+      "t": "NPD Validation V5.0 (Non-Basis)",
+      "s": "plan",
+      "d": "Jul 21, 2026",
+      "o": "werwerwerwer",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 10,
+      "e": "QA",
+      "t": "NPD Validation V5.0 (Basis)",
+      "s": "plan",
+      "d": "Aug 4,  2026",
+      "o": "NPD",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 11,
+      "e": "QA",
+      "t": "Load V6.0 Model",
+      "s": "plan",
+      "d": "Aug 18, 2026",
+      "o": "Dev",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 12,
+      "e": "QA",
+      "t": "NPD Validation V6.0 (Non-Basis)",
+      "s": "plan",
+      "d": "Sep 1,  2026",
+      "o": "NPD",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 13,
+      "e": "QA",
+      "t": "NPD Validation V6.0 (Basis)",
+      "s": "plan",
+      "d": "Sep 15, 2026",
+      "o": "NPD",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 14,
+      "e": "QA",
+      "t": "V6.1 Model Load & Validation",
+      "s": "plan",
+      "d": "Oct 6,  2026",
+      "o": "NPD/Dev",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 15,
+      "e": "QA",
+      "t": "V6.2 Model Load & Final QA Validation",
+      "s": "plan",
+      "d": "Oct 27, 2026",
+      "o": "NPD/Dev",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 16,
+      "e": "QA",
+      "t": "QA Sign-Off & UAT Readiness",
+      "s": "plan",
+      "d": "Nov 10, 2026",
+      "o": "QA Lead",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 17,
+      "e": "QA",
+      "t": "Performance Benchmark QA vs Prod Baseline",
+      "s": "plan",
+      "d": "Nov 17, 2026",
+      "o": "Dev",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 18,
+      "e": "Prod",
+      "t": "Prod Infra Provisioning",
+      "s": "plan",
+      "d": "Aug 1,  2026",
+      "o": "Infra",
+      "a": "",
+      "n": "Requires QA sign-off."
+    },
+    {
+      "id": 19,
+      "e": "Prod",
+      "t": "Data Migration Dry Run #1",
+      "s": "plan",
+      "d": "Aug 25, 2026",
+      "o": "Dev/DBA",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 20,
+      "e": "Prod",
+      "t": "Data Migration Dry Run #2",
+      "s": "plan",
+      "d": "Sep 8,  2026",
+      "o": "Dev/DBA",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 21,
+      "e": "Prod",
+      "t": "Cutover Runbook Draft",
+      "s": "plan",
+      "d": "Sep 15, 2026",
+      "o": "PM",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 22,
+      "e": "Prod",
+      "t": "Load V6.0 to Prod",
+      "s": "plan",
+      "d": "Oct 13, 2026",
+      "o": "Dev",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 23,
+      "e": "Prod",
+      "t": "NPD Prod Spot-Check V6.0",
+      "s": "plan",
+      "d": "Oct 20, 2026",
+      "o": "NPD",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 24,
+      "e": "Prod",
+      "t": "Load V6.1 to Prod",
+      "s": "plan",
+      "d": "Nov 3,  2026",
+      "o": "Dev",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 25,
+      "e": "Prod",
+      "t": "Load V6.2 to Prod",
+      "s": "plan",
+      "d": "Nov 17, 2026",
+      "o": "Dev",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 26,
+      "e": "Prod",
+      "t": "Full Regression Test Prod",
+      "s": "plan",
+      "d": "Nov 24, 2026",
+      "o": "QA/NPD",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 27,
+      "e": "Prod",
+      "t": "Go/No-Go Review",
+      "s": "plan",
+      "d": "Dec 1,  2026",
+      "o": "Leadership",
+      "a": "",
+      "n": ""
+    },
+    {
+      "id": 28,
+      "e": "Prod",
+      "t": "Production Cutover",
+      "s": "plan",
+      "d": "Dec 8,  2026",
+      "o": "Dev/Infra",
+      "a": "",
+      "n": "All hands."
+    }
   ],
   "gantt": [
-    {"id":1,  "l":"Threshold Merge for Basis Content",                  "s":0.0,  "e":1.0,  "st":"done"},
-    {"id":2,  "l":"Load full content set using v4.7 - qa",             "s":1.0,  "e":2.0,  "st":"done"},
-    {"id":3,  "l":"Run all non-basis content against V4.8",            "s":2.0,  "e":4.75, "st":"done"},
-    {"id":4,  "l":"NPD Validation V4.8 Non-Basis",                     "s":4.75, "e":5.5,  "st":"done"},
-    {"id":5,  "l":"Complete Build out of Authority (v4.8)",            "s":5.5,  "e":5.8,  "st":"plan"},
-    {"id":6,  "l":"NPD Validation V4.8 Basis",                         "s":5.8,  "e":6.0,  "st":"plan"},
-    {"id":7,  "l":"BAHR Authority Build Complete",                      "s":6.0,  "e":6.25, "st":"plan"},
-    {"id":8,  "l":"Load V5.0 Model",                                    "s":6.0,  "e":6.25, "st":"plan"},
-    {"id":9,  "l":"NPD Validation V5.0 Non-Basis",                     "s":6.25, "e":6.75, "st":"plan"},
-    {"id":10, "l":"NPD Validation V5.0 Basis",                         "s":6.75, "e":7.25, "st":"plan"},
-    {"id":11, "l":"Load V6.0 Model",                                    "s":7.25, "e":7.75, "st":"plan"},
-    {"id":12, "l":"NPD Validation V6.0 Non-Basis",                     "s":7.75, "e":8.25, "st":"plan"},
-    {"id":13, "l":"NPD Validation V6.0 Basis",                         "s":8.25, "e":8.75, "st":"plan"},
-    {"id":14, "l":"V6.1 Model Load & Validation",                       "s":8.75, "e":9.25, "st":"plan"},
-    {"id":15, "l":"V6.2 Model Load & Final QA Validation",             "s":9.25, "e":9.75, "st":"plan"},
-    {"id":16, "l":"QA Sign-Off & UAT Readiness",                        "s":9.75, "e":10.25,"st":"plan"},
-    {"id":17, "l":"Performance Benchmark",                              "s":10.25,"e":10.75,"st":"plan"},
-    {"id":18, "l":"Prod Infra Provisioning",                            "s":7.0,  "e":7.5,  "st":"plan"},
-    {"id":19, "l":"Data Migration Dry Run #1",                          "s":7.5,  "e":8.0,  "st":"plan"},
-    {"id":20, "l":"Data Migration Dry Run #2",                          "s":8.0,  "e":8.25, "st":"plan"},
-    {"id":21, "l":"Cutover Runbook Draft",                              "s":8.25, "e":8.75, "st":"plan"},
-    {"id":22, "l":"Load V6.0 to Prod",                                  "s":9.25, "e":9.5,  "st":"plan"},
-    {"id":23, "l":"NPD Prod Spot-Check V6.0",                           "s":9.5,  "e":9.75, "st":"plan"},
-    {"id":24, "l":"Load V6.1 to Prod",                                  "s":10.0, "e":10.25,"st":"plan"},
-    {"id":25, "l":"Load V6.2 to Prod",                                  "s":10.25,"e":10.75,"st":"plan"},
-    {"id":26, "l":"Full Regression Test Prod",                          "s":10.75,"e":11.0, "st":"plan"},
-    {"id":27, "l":"Go/No-Go Review",                                    "s":11.0, "e":11.25,"st":"plan"},
-    {"id":28, "l":"Production Cutover",                                 "s":11.25,"e":11.75,"st":"plan"}
+    {
+      "id": 1,
+      "l": "Threshold Merge for Basis Content",
+      "s": 0,
+      "e": 1,
+      "st": "done"
+    },
+    {
+      "id": 2,
+      "l": "Load full content set using v4.7 - qa",
+      "s": 1,
+      "e": 2,
+      "st": "done"
+    },
+    {
+      "id": 3,
+      "l": "Run all non-basis content against V4.8",
+      "s": 2,
+      "e": 4.75,
+      "st": "done"
+    },
+    {
+      "id": 4,
+      "l": "NPD Validation V4.8 Non-Basis",
+      "s": 4.75,
+      "e": 5.5,
+      "st": "done"
+    },
+    {
+      "id": 5,
+      "l": "Complete Build out of Authority (v4.8)",
+      "s": 5.5,
+      "e": 5.8,
+      "st": "plan"
+    },
+    {
+      "id": 6,
+      "l": "NPD Validation V4.8 Basis",
+      "s": 5.8,
+      "e": 6,
+      "st": "plan"
+    },
+    {
+      "id": 7,
+      "l": "BAHR Authority Build Complete",
+      "s": 6,
+      "e": 6.25,
+      "st": "plan"
+    },
+    {
+      "id": 8,
+      "l": "Load V5.0 Model",
+      "s": 6,
+      "e": 6.25,
+      "st": "plan"
+    },
+    {
+      "id": 9,
+      "l": "NPD Validation V5.0 Non-Basis",
+      "s": 6.25,
+      "e": 6.75,
+      "st": "plan"
+    },
+    {
+      "id": 10,
+      "l": "NPD Validation V5.0 Basis",
+      "s": 6.75,
+      "e": 7.25,
+      "st": "plan"
+    },
+    {
+      "id": 11,
+      "l": "Load V6.0 Model",
+      "s": 7.25,
+      "e": 7.75,
+      "st": "plan"
+    },
+    {
+      "id": 12,
+      "l": "NPD Validation V6.0 Non-Basis",
+      "s": 7.75,
+      "e": 8.25,
+      "st": "plan"
+    },
+    {
+      "id": 13,
+      "l": "NPD Validation V6.0 Basis",
+      "s": 8.25,
+      "e": 8.75,
+      "st": "plan"
+    },
+    {
+      "id": 14,
+      "l": "V6.1 Model Load & Validation",
+      "s": 8.75,
+      "e": 9.25,
+      "st": "plan"
+    },
+    {
+      "id": 15,
+      "l": "V6.2 Model Load & Final QA Validation",
+      "s": 9.25,
+      "e": 9.75,
+      "st": "plan"
+    },
+    {
+      "id": 16,
+      "l": "QA Sign-Off & UAT Readiness",
+      "s": 9.75,
+      "e": 10.25,
+      "st": "plan"
+    },
+    {
+      "id": 17,
+      "l": "Performance Benchmark",
+      "s": 10.25,
+      "e": 10.75,
+      "st": "plan"
+    },
+    {
+      "id": 18,
+      "l": "Prod Infra Provisioning",
+      "s": 7,
+      "e": 7.5,
+      "st": "plan"
+    },
+    {
+      "id": 19,
+      "l": "Data Migration Dry Run #1",
+      "s": 7.5,
+      "e": 8,
+      "st": "plan"
+    },
+    {
+      "id": 20,
+      "l": "Data Migration Dry Run #2",
+      "s": 8,
+      "e": 8.25,
+      "st": "plan"
+    },
+    {
+      "id": 21,
+      "l": "Cutover Runbook Draft",
+      "s": 8.25,
+      "e": 8.75,
+      "st": "plan"
+    },
+    {
+      "id": 22,
+      "l": "Load V6.0 to Prod",
+      "s": 9.25,
+      "e": 9.5,
+      "st": "plan"
+    },
+    {
+      "id": 23,
+      "l": "NPD Prod Spot-Check V6.0",
+      "s": 9.5,
+      "e": 9.75,
+      "st": "plan"
+    },
+    {
+      "id": 24,
+      "l": "Load V6.1 to Prod",
+      "s": 10,
+      "e": 10.25,
+      "st": "plan"
+    },
+    {
+      "id": 25,
+      "l": "Load V6.2 to Prod",
+      "s": 10.25,
+      "e": 10.75,
+      "st": "plan"
+    },
+    {
+      "id": 26,
+      "l": "Full Regression Test Prod",
+      "s": 10.75,
+      "e": 11,
+      "st": "plan"
+    },
+    {
+      "id": 27,
+      "l": "Go/No-Go Review",
+      "s": 11,
+      "e": 11.25,
+      "st": "plan"
+    },
+    {
+      "id": 28,
+      "l": "Production Cutover",
+      "s": 11.25,
+      "e": 11.75,
+      "st": "plan"
+    }
   ],
   "iterations": {
     "jun23": [
@@ -70,10 +490,21 @@
         "health": "Green",
         "status": "In Progress",
         "iterLabel": "Jun 23, 2026 (current)",
-        "state":  ["v4.8 basis authority build 60% complete", "Warehouse slot confirmed for Jun 24"],
-        "risks":  ["Team availability during school holidays", "Warehouse access window tight"],
-        "next":   ["Complete BAHR authority build by Jun 24", "Kick off NPD Basis validation Jun 30"],
-        "impact": ["Delays here push V5.0 load by 1:1 ratio"],
+        "state": [
+          "v4.8 basis authority build 60% complete",
+          "Warehouse slot confirmed for Jun 24"
+        ],
+        "risks": [
+          "Team availability during school holidays",
+          "Warehouse access window tight"
+        ],
+        "next": [
+          "Complete BAHR authority build by Jun 24",
+          "Kick off NPD Basis validation Jun 30"
+        ],
+        "impact": [
+          "Delays here push V5.0 load by 1:1 ratio"
+        ],
         "link": ""
       },
       {
@@ -85,10 +516,18 @@
         "health": "Green",
         "status": "Complete",
         "iterLabel": "Jun 23, 2026 (current)",
-        "state":  ["All 200 non-basis records validated", "Precision 94.2% / Recall 91.8%"],
-        "risks":  [],
-        "next":   ["Archive results to SharePoint", "Brief leads on findings"],
-        "impact": ["Unlocks V5.0 non-basis track"],
+        "state": [
+          "All 200 non-basis records validated",
+          "Precision 94.2% / Recall 91.8%"
+        ],
+        "risks": [],
+        "next": [
+          "Archive results to SharePoint",
+          "Brief leads on findings"
+        ],
+        "impact": [
+          "Unlocks V5.0 non-basis track"
+        ],
         "link": ""
       },
       {
@@ -100,10 +539,20 @@
         "health": "Amber",
         "status": "In Progress",
         "iterLabel": "Jun 23, 2026 (current)",
-        "state":  ["Model load complete", "Post-load checks pending"],
-        "risks":  ["One flaky integration test — investigating"],
-        "next":   ["Resolve integration test", "Tag release in ADO"],
-        "impact": ["Blocks V5.0 model prep if not resolved"],
+        "state": [
+          "Model load complete",
+          "Post-load checks pending"
+        ],
+        "risks": [
+          "One flaky integration test — investigating"
+        ],
+        "next": [
+          "Resolve integration test",
+          "Tag release in ADO"
+        ],
+        "impact": [
+          "Blocks V5.0 model prep if not resolved"
+        ],
         "link": ""
       }
     ],
@@ -117,10 +566,20 @@
         "health": "Amber",
         "status": "Not Started",
         "iterLabel": "Jul 7, 2026",
-        "state":  ["Scheduled to start Jun 25"],
-        "risks":  ["Warehouse availability unconfirmed beyond Jun 24", "SME bandwidth — 2 team members on leave"],
-        "next":   ["Confirm warehouse slot Jul 1-4", "Assign backup SME"],
-        "impact": ["Critical path — all V5.0 QA work depends on this"],
+        "state": [
+          "Scheduled to start Jun 25"
+        ],
+        "risks": [
+          "Warehouse availability unconfirmed beyond Jun 24",
+          "SME bandwidth — 2 team members on leave"
+        ],
+        "next": [
+          "Confirm warehouse slot Jul 1-4",
+          "Assign backup SME"
+        ],
+        "impact": [
+          "Critical path — all V5.0 QA work depends on this"
+        ],
         "link": ""
       },
       {
@@ -132,10 +591,19 @@
         "health": "Amber",
         "status": "Not Started",
         "iterLabel": "Jul 7, 2026",
-        "state":  ["Dependent on BAHR build completing Jun 24"],
-        "risks":  ["If BAHR slips, validation moves to Jul 14 at earliest"],
-        "next":   ["Prepare test data set", "Confirm NPD reviewer availability"],
-        "impact": ["Validation result feeds V5.0 model tuning"],
+        "state": [
+          "Dependent on BAHR build completing Jun 24"
+        ],
+        "risks": [
+          "If BAHR slips, validation moves to Jul 14 at earliest"
+        ],
+        "next": [
+          "Prepare test data set",
+          "Confirm NPD reviewer availability"
+        ],
+        "impact": [
+          "Validation result feeds V5.0 model tuning"
+        ],
         "link": ""
       }
     ],
@@ -149,10 +617,19 @@
         "health": "Green",
         "status": "Not Started",
         "iterLabel": "Jul 21, 2026",
-        "state":  ["Planned, awaiting V5.0 model load"],
-        "risks":  ["Model load delay would push this"],
-        "next":   ["V5.0 model load Jul 7", "Kick off validation immediately after"],
-        "impact": ["Feeds V5.0 basis track"],
+        "state": [
+          "Planned, awaiting V5.0 model load"
+        ],
+        "risks": [
+          "Model load delay would push this"
+        ],
+        "next": [
+          "V5.0 model load Jul 7",
+          "Kick off validation immediately after"
+        ],
+        "impact": [
+          "Feeds V5.0 basis track"
+        ],
         "link": ""
       }
     ]
