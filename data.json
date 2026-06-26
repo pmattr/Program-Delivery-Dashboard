@@ -44,8 +44,8 @@
       "id": 5,
       "e": "QA",
       "t": "Complete Build out of Authority again (v4.8)",
-      "s": "plan",
-      "d": "Jun 24, 2026",
+      "s": "prog",
+      "d": "Jul 1, 2026",
       "o": "NER",
       "a": "Feature 1290619",
       "n": "Blocked on warehouse."
@@ -66,7 +66,7 @@
       "t": "BAHR Authority Build Complete",
       "s": "plan",
       "d": "Jul 7,  2026",
-      "o": "dffdfsdfsdfdsfsdf",
+      "o": "NER",
       "a": "",
       "n": ""
     },
